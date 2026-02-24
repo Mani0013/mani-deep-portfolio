@@ -83,7 +83,7 @@ const Portfolio = () => {
   {
     title: 'Personal Portfolio - AWS S3 + CloudFront',
     description: 'Architected a highly available, secure static hosting solution using S3 (Private) and CloudFront OAC. Automated the entire infrastructure lifecycle with Terraform and implemented a seamless CI/CD pipeline via GitHub Actions.',
-    link: '#',
+    link: 'https://github.com/Mani0013/mani-deep-portfolio',
   },
   {
     title: 'FreshBite - DevSecOps Food Delivery App',
