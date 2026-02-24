@@ -1,0 +1,48 @@
+name: Portfolio Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Get the code from repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Set up Node.js to build the Next.js site
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Install dependencies and generate static files(out) folder
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+
+      # Configure the AWS CLI using your Secrets
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      # Sync the 'out' folder to S3 bucket
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./out s3://mani-deep.online --delete
+
+      # Clear the CloudFront cache so changes show up instantly
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
