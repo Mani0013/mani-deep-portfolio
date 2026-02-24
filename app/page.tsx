@@ -119,7 +119,13 @@ const Portfolio = () => {
     title: 'Google Project Management Professional Certificate',
     issuer: 'Coursera',
     detail: 'Proficiency in Agile methodologies and project lifecycle planning.'
-  }
+  },
+  {
+  title: 'Microsoft Azure Internship - Emerging Technologies',
+  issuer: 'Microsoft Elevate & AICTE',
+  detail: 'Completed a specialized 4-week program focusing on Azure cloud services and emerging technical implementations.'
+}
+
 ];
 
   // ============================================
